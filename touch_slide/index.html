@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>图片轮播</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+  <style>
+      html,body{
+        margin: 0;
+        padding: 0;
+      }
+      .content {
+        width: 350px;
+        height: auto;
+        min-height: 200px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+      }
+      img{
+        width: 100%;
+        width: 350px;
+        height:200px;
+      }
+      #list {
+        height:200px;
+        position:absolute;
+        margin:0;
+        padding:0;
+        transition:left 0.7s ease-in 0s;
+        left:0%;
+      }
+      li{
+          list-style: none;
+          float: left;
+          background-size: 100%;
+          display: inline-block;
+          width: 350px;
+          height: 200px;
+      }
+      .pr1 {
+        background: url(images/product1.jpg) no-repeat center;
+      }
+      .pr2{
+        background: url(images/product2.jpg) no-repeat center;
+      }
+      .pr3{
+        background: url(images/product3.jpg) no-repeat center;
+      }
+      .pr4{
+        background: url(images/product4.jpg) no-repeat center;
+      }
+  </style>
+</head>
+<body>
+<div class="content" id="content">
+      <ul id="list">
+        <li class="pr1">
+        </li>
+        <li class="pr2">
+        </li>
+        <li class="pr3">
+        </li>
+        <li class="pr4">
+        </li>
+      </ul>
+  
+</div>
+<script src="js/touch.min.js"></script>
+<script>
+  (function() {
+    var mc = document.getElementById("content");
+    var index = 0;
+    var switchEvent = {};
+    var ul = document.getElementById("list");
+    var length = ul.getElementsByTagName("li").length;
+    ul.style.width = length * 100 + "%";
+    touch.on(mc,"swipeleft swiperight",function(ev){
+        switch(ev.type){
+            case "swiperight":
+                switchEvent.prev();
+                break;
+            case "swipeleft":
+                switchEvent.next();
+                break;
+        }
+    });
+    switchEvent.next = function(){
+        index == length-1 ? index = 0 : index++;
+        ul.style.left = -index*100 + "%";
+     };
+    switchEvent.prev = function(){
+        index == 0 ? index += (length-1) : index--;
+        ul.style.left = -index*100 + "%";
+    };
+  })();
+</script>
+</body>
+</html>
